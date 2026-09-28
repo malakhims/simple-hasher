@@ -1,8 +1,36 @@
 
+    <!-- * ₊˚ ✧ ━━━━⊱ 
+
+     THIS IS HASHER.PHP
+
+     It is not really an include. It is just a hasher for your config password.  
+     You can delete this from your server or add a starting PHP tag to the comment below if you want to keep it
+     
+    ⢠⡶⢦⡀⠀⠀⠀⢀⣴⠖⣦⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⡿⢀⠀⢳⡀⠀⢀⡾⢁⢤⠘⡇⠀⠀⠀⠀⠀⠀
+⠀⠀⢸⡇⡇⢣⢸⡧⠶⢼⠃⡜⢸⠀⡇⠀⠀⠀⠀⠀⠀
+⠀⠀⢸⡀⢃⠞⠀⠀⠀⠀⠀⠉⠁⠀⡇⠀⠀⠀⠀⠀⠀
+⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣄⣀⡀⠀⠀⠀
+⠀⠀⣾⠁⠀⣤⡀⠀⢀⠀⢰⣿⠀⠀⡲⣿⡖⠂⠀⠀⠀
+⢒⣲⣟⠀⠀⠉⠁⠀⠈⠈⠀⠀⠀⠀⣀⡿⢁⣤⠖⢲⡆
+⠀⠈⠳⣤⣄⣀⣀⠀⠀⠀⠀⠀⠰⣾⠋⠀⡜⠁⠐⢸⠃
+⠀⠀⠀⠀⠀⣟⠁⠀⠀⠀⠀⠀⠀⠙⡇⠀⡇⠀⠀⡏⠀
+⠀⠀⠀⠀⡴⠋⠀⠀⠀⠀⠀⠀⠀⠀⣧⠀⡇⠀⠀⡇⠀
+⠀⠀⠀⡼⠁⢀⠀⠀⠀⠠⢀⠀⠀⠀⠜⣷⠇⠀⠀⡇⠀
+⠀⠀⣴⠃⠀⢺⠀⠀⠀⠀⠈⠀⠀⠀⠐⠠⠂⠑⢰⠇⠀
+⠀⠀⣿⠀⠀⠀⡄⠀⠀⠀⠀⡆⠀⠀⡆⠀⠃⣠⠟⠀⠀
+⠀⠀⠈⢦⡀⠀⢰⠀⠀⢠⠀⡇⠀⠀⠁⠀⣿⠁⠀⠀⠀
+⠀⠀⠀⠀⠈⠛⠢⢷⣤⡬⠤⢧⣠⡼⠤⠚⠁⠀⠀⠀⠀
+     
+     ⊰━━━━ ✧ ₊˚ * -->
+
+
+
+
 <!--- 
-If you want to keep the hasher on your server, comment this out.
-// <?php
-// require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/auth.php';
+
+<?php
+// require_once __DIR__ . '/auth.php';
 // check_login(); // This will show login form if not logged in
 
 ?>
@@ -10,10 +38,10 @@ If you want to keep the hasher on your server, comment this out.
 
 <?php
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $plain_password = $_POST['password'] ?? '';
+    $plain_password = isset($_POST['password']) ? $_POST['password'] : '';
 
     if (!empty($plain_password)) {
-        $hashed_password = password_hash($plain_password, PASSWORD_DEFAULT);
+        $hashed_password = password_hash($plain_password, PASSWORD_BCRYPT);
     }
 }
 ?>
@@ -26,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     function copyHash() {
         const textarea = document.getElementById("hashOutput");
         textarea.select();
-        textarea.setSelectionRange(0, 99999); // For mobile
+        textarea.setSelectionRange(0, 99999);
         document.execCommand("copy");
         alert("Hash copied to clipboard!");
     }
